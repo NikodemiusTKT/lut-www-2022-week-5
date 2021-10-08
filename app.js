@@ -3,9 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var recipesRouter = require('./routes/recipes');
 
 var app = express();
 
@@ -20,15 +21,38 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/recipe', recipesRouter);
 
+// const recipes = [
+//   {
+//     name: 'pizza',
+//     ingredients: ['frozen pizza base', 'tomato sauce', 'mozzarellas'],
+//     instructions: [
+//       'preheat oven 225C',
+//       'slice mozzarellas',
+//       'put tomato sauce on pizza base',
+//       'put mozzarella slices on pizza',
+//       'bake for 15 minutes',
+//     ],
+//   },
+//   { name: 'pasta', ingredients: 'pasta', instructions: ['preheat'] },
+// ];
+// app.get('/recipe', (req, res) => {
+//   res.json(recipes);
+// });
+// app.get('/recipe/:food', (req, res) => {
+//   res.status(200).json({ data: recipes.find((recipe) => recipe.name === req.params.food) });
+// });
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
+// Add the bodyParser middelware to the express application
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
