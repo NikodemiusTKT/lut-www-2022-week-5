@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios').default;
-var url = 'http://localhost:3300/recipe/pizza';
+const PORT = process.env.PORT | 3300;
+var url = `http://localhost:${PORT}/recipe/pizza`;
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
