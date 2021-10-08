@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  .viewing.col
     h1= name
     h2 Ingredients
     ul
@@ -14,4 +15,13 @@ block content
         li #{instruction}
       else
         li No instructions.
+  .adding.col
+    input(type="text" id="name-text")
+    h4 Ingredients
+    textarea(id=ingredients-text)
+    button(id="add-ingredient" type="button" class="btn") Add ingredient
+    h4 instructions
+    textarea(id="instructions-text")
+    button(id="add-instruction" type="button" class='btn') Add instruction
+    button(id="submit" type="submit" class='btn') Submit
 
