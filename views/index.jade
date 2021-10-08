@@ -1,5 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= name
+    h2 Ingredients
+    ul
+      each ingredient in ingredients
+        li #{ingredient}
+      else
+        li No ingredients.
+    h2 Instructions
+    ol
+      each instruction in instructions
+        li #{instruction}
+      else
+        li No instructions.
+

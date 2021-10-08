@@ -8,7 +8,12 @@ router.get('/', (req, res) => {
 });
 /* GET users listing. */
 router.get('/:food', (req, res) => {
-  res.status(200).json({ data: recipes.find((recipe) => recipe.name === req.params.food) });
+  const recipe = recipes.find((recipe) => recipe.name === req.params.food);
+  if (recipe) {
+    res.status(200).json(recipe);
+  } else {
+    res.json('No recipe found');
+  }
 });
 
 module.exports = router;
