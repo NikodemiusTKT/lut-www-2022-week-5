@@ -23,26 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/recipe', recipesRouter);
 
-// const recipes = [
-//   {
-//     name: 'pizza',
-//     ingredients: ['frozen pizza base', 'tomato sauce', 'mozzarellas'],
-//     instructions: [
-//       'preheat oven 225C',
-//       'slice mozzarellas',
-//       'put tomato sauce on pizza base',
-//       'put mozzarella slices on pizza',
-//       'bake for 15 minutes',
-//     ],
-//   },
-//   { name: 'pasta', ingredients: 'pasta', instructions: ['preheat'] },
-// ];
-// app.get('/recipe', (req, res) => {
-//   res.json(recipes);
-// });
-// app.get('/recipe/:food', (req, res) => {
-//   res.status(200).json({ data: recipes.find((recipe) => recipe.name === req.params.food) });
-// });
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

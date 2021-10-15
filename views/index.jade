@@ -2,7 +2,7 @@ extends layout
 
 block content
   .viewing.col
-    h1= name
+    h1(style={"text-transform":"capitalize"})= name
     h2 Ingredients
     ul
       each ingredient in ingredients
@@ -16,12 +16,15 @@ block content
       else
         li No instructions.
   .adding.col
-    input(type="text" id="name-text")
+    input(type="text" id="name-text" placeholder="Input recipe name")
     h4 Ingredients
-    textarea(id=ingredients-text)
+    textarea(id="ingredients-text")
     button(id="add-ingredient" type="button" class="btn") Add ingredient
     h4 instructions
     textarea(id="instructions-text")
     button(id="add-instruction" type="button" class='btn') Add instruction
-    button(id="submit" type="submit" class='btn') Submit
+    h4 picture:
+    input(type='file' id="img-input" accept="image/*" multiple)
+    br
+    button(id="submit" type="submit" class='btn' style={'margin-top': '20px'}) Submit
 
