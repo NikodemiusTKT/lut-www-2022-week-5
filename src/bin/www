@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../app.js');
 var debug = require('debug')('lut-www-course-2021-week4:server');
 var http = require('http');
 require('dotenv').config();

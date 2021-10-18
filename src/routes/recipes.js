@@ -1,7 +1,7 @@
 var express = require('express');
 const { request } = require('../app');
 var router = express.Router();
-var recipes = require('./recipes.json').recipes;
+var recipes = require('./database.json').recipes;
 
 router.get('/', (req, res) => {
   res.json(recipes);
@@ -16,4 +16,7 @@ router.get('/:food', (req, res) => {
   }
 });
 
+router.put('/:food', (request, response) => {
+  res.status(200).json(req.params);
+});
 module.exports = router;

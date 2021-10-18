@@ -5,10 +5,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var indexRouter = require('./routes/index');
+var index = require('./routes/index');
 var recipesRouter = require('./routes/recipes');
 
 var app = express();
+
+////Import the mongoose module
+//var mongoose = require('mongoose');
+
+////Set up default mongoose connection
+//var mongoDB = process.env.mongodb || 'mongodb://127.0.0.1/testdb';
+//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+////Get the default connection
+//var db = mongoose.connection;
+
+////Bind connection to error event (to get notification of connection errors)
+//db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,17 +32,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
-app.use('/', indexRouter);
+app.use('/', index);
 app.use('/recipe', recipesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-// Add the bodyParser middelware to the express application
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // error handler
 app.use(function (err, req, res, next) {

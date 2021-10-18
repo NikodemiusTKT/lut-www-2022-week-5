@@ -6,11 +6,9 @@ if (document.readyState !== 'loading') {
 
 function initializeCode() {
   document.addEventListener('DOMContentLoaded', function () {
-    var name;
     var ingredients = new Array();
     var instructions = new Array();
     var pictures;
-    document.querySelector('#name-text').addEventListener('change', () => {});
     document.getElementById('add-instruction').addEventListener('click', () => {
       var instruction = document.querySelector('#instructions-text');
       instructions.push(instruction.value);
@@ -25,7 +23,7 @@ function initializeCode() {
       var picture = document.querySelector('#img-input');
       pictures = picture.files;
     });
-    document.querySelector('#submit').addEventListener('submit', (e) => {
+    document.querySelector('#submit').addEventListener('click', (e) => {
       e.preventDefault();
       submitFormData({ ingredients, instructions });
     });
@@ -36,19 +34,29 @@ async function submitFormData(data) {
   var formData = new FormData();
   var nameEl = document.querySelector('#name-text');
   var nameVal = nameEl.value;
+  const url = `/recipe/${nameVal}`;
   nameEl.value = '';
+  formData.append('name', nameVal);
   formData.append('ingredients', JSON.stringify(data.ingredients));
   formData.append('instructions', JSON.stringify(data.instructions));
-  formData.append('name', nameVal);
-  try {
-    let response = await fetch('/recipe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: formData,
+  // Create request object for the recipe
+  const request = new Request(url, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+  // pass request to fetch
+  fetch(request)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error('Something went wrong when posting new recipe on API');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  } catch (error) {
-    console.error(error);
-  }
 }

@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios').default;
 const PORT = process.env.PORT || 1234;
-var url = `http://localhost:${PORT}/recipe/hot dog`;
+const recipe = `http://localhost:${PORT}/recipe/hot dog`;
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(recipe);
     const { name, ingredients, instructions } = response.data;
-    res.render('index', { title: 'Exercise 4', name, ingredients, instructions });
+    res.render('index', { title: 'Recipes website', name, ingredients, instructions });
   } catch (error) {
     console.error(error);
   }
