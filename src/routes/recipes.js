@@ -22,7 +22,8 @@ const staticRecipe = {
     '150 ml double cream',
     '2 heaped teaspoons of ground almonds',
     '1 tablespoon ghee or vegetable oil for frying',
-    'Pinch of salt'
+    'Pinch of salt',
+    'Pasta'
   ],
   instructions: ["Mix the garlic and ginger together with the salt",
     "Gently fry the onions in the ghee or vegetable oil for 4 minutes",
