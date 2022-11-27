@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs').promises
 var path = require('path');
-const { nextTick } = require('process');
 
 const recipesPath = path.resolve(__dirname, '../data/database.json')
 
@@ -64,7 +63,7 @@ router.get('/', async (req, res) => {
 
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
-router.post('/', (req, res,next) => {
+router.post('/', (req, res, next) => {
   // if (await checkFile(recipesPath)) {
   //   recipes = require('../data/database.json').recipes
   // }
@@ -76,7 +75,11 @@ router.post('/', (req, res,next) => {
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
   const parsedIngredients = JSON.parse(ingredients)
   const parsedInstructions = JSON.parse(instructions)
-  res.json({ name,parsedIngredients,parsedInstructions })
+  res.json({
+    name,
+    parsedIngredients,
+    parsedInstructions
+  })
   next()
   // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
   // /*
@@ -115,14 +118,22 @@ router.post('/', (req, res,next) => {
 });
 /* GET /recipe/:food responds with recipe given :food request param. */
 router.get('/:food', (req, res) => {
-  const recipe = recipes.find((recipe) => recipe.name === req.params.food);
-  if (recipe) {
-    res.status(200).json(recipe);
-  } else {
-    res.json({
+  var recipe = recipes.find((recipe) => recipe.name === req.params.food);
+  if (!recipe) {
+    recipe = {
       name: req.params.food,
       ingredients: staticRecipe.ingredients,
       instructions: staticRecipe.instructions
+    }
+  }
+  if (req.header('Accept').includes('application/json')) {
+    res.status(200).json(recipe);
+  } else {
+    res.render('index', {
+      title: 'Recipes website',
+      name: recipe.name,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions
     });
   }
 });
