@@ -64,9 +64,9 @@ router.get('/', async (req, res) => {
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
 router.post('/', async (req, res) => {
-  if (await checkFile(recipesPath)) {
-    recipes = require('../data/database.json').recipes
-  }
+  // if (await checkFile(recipesPath)) {
+  //   recipes = require('../data/database.json').recipes
+  // }
   const {
     name,
     ingredients,
@@ -75,39 +75,41 @@ router.post('/', async (req, res) => {
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
   const parsedIngredients = JSON.parse(ingredients)
   const parsedInstructions = JSON.parse(instructions)
-  const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
-  // If recipe with given name already exists, then just push new ingredients and instructions
-  if (recipeIndex >= 0) {
-    recipes[recipeIndex].ingredients.push(...parsedIngredients)
-    recipes[recipeIndex].instructions.push(...parsedInstructions)
-    // Save new modified recipe inside a json database file at ../data/database.json
-    try {
-      await fs.writeFile(recipesPath, JSON.stringify({
-        recipes: [...recipes]
-      }))
-      res.status(200).json(recipes[recipeIndex])
-    } catch (error) {
-      throw error
-    }
-  } else {
-    /* Add new recipe when recipe name doesn't already exist */
-    const newRecipe = {
-      name: name,
-      ingredients: parsedIngredients,
-      instructions: parsedInstructions
-    }
-    recipes.push(newRecipe)
-    const newRecipesArray = {
-      recipes: recipes
-    }
-    // Save new recipe inside a json database file at ../data/database.json
-    try {
-      await fs.writeFile(recipesPath, JSON.stringify(newRecipesArray))
-      res.status(200).json(newRecipe)
-    } catch (error) {
-      throw error
-    }
-  }
+  res.json({ name,parsedIngredients,parsedInstructions })
+  // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
+  // /*
+  // // If recipe with given name already exists, then just push new ingredients and instructions
+  // if (recipeIndex >= 0) {
+  //   recipes[recipeIndex].ingredients.push(...parsedIngredients)
+  //   recipes[recipeIndex].instructions.push(...parsedInstructions)
+  //   // Save new modified recipe inside a json database file at ../data/database.json
+  //   try {
+  //     await fs.writeFile(recipesPath, JSON.stringify({
+  //       recipes: [...recipes]
+  //     }))
+  //     res.status(200).json(recipes[recipeIndex])
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // } else {
+  //   /* Add new recipe when recipe name doesn't already exist */
+  //   const newRecipe = {
+  //     name: name,
+  //     ingredients: parsedIngredients,
+  //     instructions: parsedInstructions
+  //   }
+  //   recipes.push(newRecipe)
+  //   const newRecipesArray = {
+  //     recipes: recipes
+  //   }
+  //   // Save new recipe inside a json database file at ../data/database.json
+  //   try {
+  //     await fs.writeFile(recipesPath, JSON.stringify(newRecipesArray))
+  //     res.status(200).json(newRecipe)
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
 });
 /* GET /recipe/:food responds with recipe given :food request param. */
 router.get('/:food', (req, res) => {
