@@ -19,7 +19,7 @@ function initializeCode() {
       ingredients.push(ingredient.value);
       ingredient.value = '';
     });
-    document.querySelector('#img-input').addEventListener('change', () => {
+    document.querySelector('#image-input').addEventListener('change', () => {
       var pictureInput = document.querySelector('#img-input');
       pictures = pictureInput.files;
     });
