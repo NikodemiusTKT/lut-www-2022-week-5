@@ -1,7 +1,7 @@
 {
   "recipes": [{
       "name": "Pizza",
-      "ingredients": ["1 frozen pizza base", "1 tomato sauce", "2 mozzarellas", "casserolle"],
+      "ingredients": ["1 frozen pizza base", "1 tomato sauce", "2 mozzarellas", "casserolle", "lassagna"],
       "instructions": ["preheat oven 225C", "Put everything to a large bowl", "slice mozzarellas", "put tomato sauce on pizza base", "put mozzarella slices on pizza", "bake for 15 minutes"]
     }, {
       "name": "Baked potatoes",
