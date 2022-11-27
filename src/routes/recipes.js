@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const fs = require('fs').promises
-var path = require('path')
+var path = require('path');
+const { nextTick } = require('process');
 
 const recipesPath = path.resolve(__dirname, '../data/database.json')
 
@@ -63,7 +64,7 @@ router.get('/', async (req, res) => {
 
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
-router.post('/', async (req, res) => {
+router.post('/', (req, res,next) => {
   // if (await checkFile(recipesPath)) {
   //   recipes = require('../data/database.json').recipes
   // }
@@ -76,6 +77,7 @@ router.post('/', async (req, res) => {
   const parsedIngredients = JSON.parse(ingredients)
   const parsedInstructions = JSON.parse(instructions)
   res.json({ name,parsedIngredients,parsedInstructions })
+  next()
   // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
   // /*
   // // If recipe with given name already exists, then just push new ingredients and instructions
