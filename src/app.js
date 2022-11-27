@@ -4,9 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer();
 
 var index = require('./routes/index');
 var recipesRouter = require('./routes/recipes');
+var imageRouter = require('./routes/image');
 
 var app = express();
 
@@ -27,15 +30,30 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+
+// This part is for middlewares
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// for parsing application/json
+app.use(express.json()); 
+
+// for parsing application/xwww-
+app.use(express.urlencoded({
+  extended: true
+}))
+
+// for parsing multipart/form-data
+app.use(upload.array()); 
+
+app.use(express.static('public'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 
+// This part is for route registration
+
 app.use('/', index);
 app.use('/recipe', recipesRouter);
+app.use('/image', imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -20,12 +20,12 @@ function initializeCode() {
       ingredient.value = '';
     });
     document.querySelector('#img-input').addEventListener('change', () => {
-      var picture = document.querySelector('#img-input');
-      pictures = picture.files;
+      var pictureInput = document.querySelector('#img-input');
+      pictures = pictureInput.files;
     });
     document.querySelector('#submit').addEventListener('click', (e) => {
       e.preventDefault();
-      submitFormData({ ingredients, instructions });
+      submitFormData({ ingredients, instructions, pictures });
     });
   });
 }
@@ -34,28 +34,26 @@ async function submitFormData(data) {
   var formData = new FormData();
   var nameEl = document.querySelector('#name-text');
   var nameVal = nameEl.value;
-  const url = `/recipe/${nameVal}`;
+  const url = `/recipe`;
   nameEl.value = '';
   formData.append('name', nameVal);
-  formData.append('ingredients', JSON.stringify(data.ingredients));
+  formData.append('ingredients', JSON.stringify(data.ingredients),);
   formData.append('instructions', JSON.stringify(data.instructions));
+  formData.append('images', data.pictures);
   // Create request object for the recipe
+  const plainFormData = Object.fromEntries(formData.entries())
   const request = new Request(url, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify(plainFormData),
     headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-    },
+			"Content-Type": "multipart/form-data",
+			"Accept": "application/json"
+		},
   });
   // pass request to fetch
   fetch(request)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error('Something went wrong when posting new recipe on API');
-      }
-    })
+    .then((res) => res.json())
+    .then(data => console.log(data))
     .catch((error) => {
       console.error(error);
     });
