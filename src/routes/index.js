@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios').default;
-const PORT = process.env.PORT || 1234;
-const recipeName = 'pizza'
+const PORT = process.env.PORT || 3000;
+const recipeName = 'Casserole'
 const recipeURL = `http://localhost:${PORT}/recipe/${recipeName}`;
 /* GET home page. */
 router.get('/', async (req, res, next) => {
