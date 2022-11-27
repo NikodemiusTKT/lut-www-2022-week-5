@@ -9,11 +9,19 @@ The 4th weekly exercise for the LUT University's "Advanced Web Applications" cou
 ### 5. Materialize CSS
 
 ## Instructions 
-`git clone https://github.com/NikodemiusTKT/lut-www-2022-week-4`
 
-Go to the cloned directory and then:
+1. `git clone https://github.com/NikodemiusTKT/lut-www-2022-week-4`
+
+2. Change working directory to the cloned directory:
+
+`cd lut-www-2022-week-4`
+
+3. Install required node modules:
+
 `npm install`
+
+4. execute the application
 
 `npm run start`
 
-app should run at: http://localhost:1234
+5. web application should run on: http://localhost:1234
