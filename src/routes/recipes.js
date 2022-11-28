@@ -63,24 +63,22 @@ router.get('/', async (req, res) => {
 
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   // if (await checkFile(recipesPath)) {
   //   recipes = require('../data/database.json').recipes
   // }
-  const {
-    name,
-    ingredients,
-    instructions
-  } = req.body;
+  const name = req.body.name;
+  const ingredients = req.body.ingredients;
+  const instructions = req.body.instructions
+  console.log('request ingredients',instructions)
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
-  const parsedIngredients = JSON.parse(ingredients)
-  const parsedInstructions = JSON.parse(instructions)
+  // const parsedIngredients = JSON.parse(ingredients)
+  // const parsedInstructions = JSON.parse(instructions)
   res.json({
-    name,
-    parsedIngredients,
-    parsedInstructions
+    name: name,
+    ingredients: ingredients,
+    instructions: instructions
   })
-  next()
   // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
   // /*
   // // If recipe with given name already exists, then just push new ingredients and instructions

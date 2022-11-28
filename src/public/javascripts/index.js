@@ -46,8 +46,9 @@ async function submitFormData(data) {
     method: 'POST',
     body: JSON.stringify(plainFormData),
     headers: {
-			"Content-Type": "multipart/form-data",
-			"Accept": "application/json"
+      "Content-Type": "application/json",
+      "connection": "keep-alive",
+      "Accept": "application/json"
 		},
   });
   // pass request to fetch
