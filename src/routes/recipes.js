@@ -68,13 +68,14 @@ router.post('/', (req, res) => {
   //   recipes = require('../data/database.json').recipes
   // }
   const name = req.body.name;
-  const ingredients = req.body.ingredients;
-  const instructions = req.body.instructions
-  console.log('request ingredients',instructions)
+  var ingredients = req.body.ingredients;
+  var instructions = req.body.instructions;
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
+  if (!Array.isArray(ingredients)) ingredients = JSON.parse(ingredients)
+  if (!Array.isArray(instructions)) instructions = JSON.parse(instructions)
   // const parsedIngredients = JSON.parse(ingredients)
   // const parsedInstructions = JSON.parse(instructions)
-  res.json({
+  res.status(200).json({
     name: name,
     ingredients: ingredients,
     instructions: instructions

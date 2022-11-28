@@ -33,13 +33,12 @@ app.set('view engine', 'jade');
 
 // This part is for middlewares
 app.use(logger('dev'));
-// for parsing application/json
-app.use(express.json()); 
+app.use(bodyParser.json())
 
-// for parsing application/xwww-
-app.use(express.urlencoded({
-  extended: true
-}))
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+
 
 // for parsing multipart/form-data
 app.use(upload.array()); 
