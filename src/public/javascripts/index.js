@@ -41,13 +41,14 @@ async function submitFormData(data) {
   formData.append('instructions', JSON.stringify(data.instructions));
   formData.append('images', data.pictures);
   // Create request object for the recipe
-  // const plainFormData = Object.fromEntries(formData.entries())
+  const plainFormData = Object.fromEntries(formData.entries())
   const request = new Request(url, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify(formData),
     headers: {
       "connection": "keep-alive",
-      "accept": "json/application"
+      "accept": "*/*",
+      "content-type": "application/json"
 		},
   });
   // pass request to fetch

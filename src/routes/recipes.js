@@ -61,6 +61,7 @@ router.get('/', async (req, res) => {
   res.json(recipes)
 });
 
+
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
 router.post('/', (req, res) => {
@@ -75,11 +76,18 @@ router.post('/', (req, res) => {
   if (!Array.isArray(instructions)) instructions = JSON.parse(instructions)
   // const parsedIngredients = JSON.parse(ingredients)
   // const parsedInstructions = JSON.parse(instructions)
+  if(req.header('Accept').includes('application/json')) {
   res.status(200).json({
     name: name,
     ingredients: ingredients,
     instructions: instructions
   })
+
+  } else {
+    console.log(instructions)
+    res.render('index',{title: 'Recipes Website', name: name, ingredients: ingredients, instructions: instructions})
+
+  }
   // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
   // /*
   // // If recipe with given name already exists, then just push new ingredients and instructions
