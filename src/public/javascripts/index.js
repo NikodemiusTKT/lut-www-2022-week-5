@@ -1,3 +1,5 @@
+const recipe = require("../../models/recipe");
+
 if (document.readyState !== 'loading') {
   initializeCode();
 } else {
@@ -80,11 +82,14 @@ function searchRecipe(recipeName) {
     var recipeNameTitle = document.querySelector('#recipeTitle');
     var instructionsElement = document.querySelector('#instructionsList');
     var ingredientsElement = document.querySelector('#ingredientsList');
-    // Set the recipe name
+    ingredientsElement.replaceChildren()
+    instructionsElement.replaceChildren()
     if (data.name) {
-      recipeNameTitle.innerHTML = data.name
+    // Set the recipe name
+      recipeNameTitle.innerHTML = data.name 
       // create li elements for every ingredient
       if (data.ingredients.length > 0) {
+        console.log('ingredients is not empty')
         data.ingredients.map(ingredient => {
           var li = document.createElement('li')
           li.append(ingredient)
@@ -92,11 +97,11 @@ function searchRecipe(recipeName) {
         })
       } else {
         // case when ingredients array is empty
-      ingredientsElement.replaceChildren('No ingredients found.')
+        ingredientsElement.replaceChildren('No ingredients found.')
       }
 
       // create li elements for every intruction
-      if (data.instructions.length > 0) {
+      if (data.instructions) {
         data.instructions.map(instruction => {
           var li = document.createElement('li')
           li.append(instruction)
@@ -105,7 +110,7 @@ function searchRecipe(recipeName) {
 
       } else {
         // case when instructions array is empty
-      instructionsElement.replaceChildren('No instructions found')
+        instructionsElement.replaceChildren('No instructions found')
 
       }
 
