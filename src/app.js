@@ -14,11 +14,19 @@ var imageRouter = require('./routes/image');
 var app = express();
 
 ////Import the mongoose module
-//var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 ////Set up default mongoose connection
-//var mongoDB = process.env.mongodb || 'mongodb://127.0.0.1/testdb';
-//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoDB = process.env.mongodb || 'mongodb://127.0.0.1:27017/testdb';
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(result => {
+  console.log("MongoDB connection is successful")
+}).catch(err => {
+  console.log(err)
+})
+
 
 ////Get the default connection
 //var db = mongoose.connection;
@@ -36,12 +44,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json())
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 
 
 // for parsing multipart/form-data
-app.use(upload.array()); 
+app.use(upload.array());
 
 app.use(express.static('public'));
 app.use(cookieParser());

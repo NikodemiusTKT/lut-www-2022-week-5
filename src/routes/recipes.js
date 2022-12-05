@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 const fs = require('fs').promises
 var path = require('path');
+const { nextTick } = require('process');
 
 const recipesPath = path.resolve(__dirname, '../data/database.json')
+
+const Recipe = require('../models/Recipe')
 
 const staticRecipe = {
   ingredients: ['1 cm (1/2") peeled root ginger, grated',
@@ -55,10 +58,12 @@ const checkFile = async (path) => {
 
 /* GET route "/recipe" responds with all of the recipes */
 router.get('/', async (req, res) => {
-  if (await checkFile(recipesPath)) {
-    recipes = require('../data/database.json').recipes
+  try {
+    const recipes = await Recipe.find({})
+    res.json(recipes)
+  } catch(error) {
+    console.log("could not fetch all recipes:", error)
   }
-  res.json(recipes)
 });
 
 
@@ -74,20 +79,32 @@ router.post('/', (req, res) => {
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
   if (!Array.isArray(ingredients)) ingredients = JSON.parse(ingredients)
   if (!Array.isArray(instructions)) instructions = JSON.parse(instructions)
-  // const parsedIngredients = JSON.parse(ingredients)
-  // const parsedInstructions = JSON.parse(instructions)
-  if(req.header('Accept').includes('application/json')) {
-  res.status(200).json({
+  const newRecipe = new Recipe({
     name: name,
     ingredients: ingredients,
     instructions: instructions
   })
+  newRecipe.save().then(() => {
+    if (req.header('Accept').includes('application/json')) {
+      res.status(200).json({
+        name: name,
+        ingredients: ingredients,
+        instructions: instructions
+      })
 
-  } else {
-    console.log(instructions)
-    res.render('index',{title: 'Recipes Website', name: name, ingredients: ingredients, instructions: instructions})
+    } else {
+      res.render('index', {
+        title: 'Recipes Website',
+        name: name,
+        ingredients: ingredients,
+        instructions: instructions
+      })
 
-  }
+    }
+
+  }).catch(err => {
+    console.log("Something went wrong with saving new recipe: ", err)
+  })
   // const recipeIndex = await recipes.findIndex((recipe) => recipe.name === name)
   // /*
   // // If recipe with given name already exists, then just push new ingredients and instructions
@@ -124,14 +141,12 @@ router.post('/', (req, res) => {
   // }
 });
 /* GET /recipe/:food responds with recipe given :food request param. */
-router.get('/:food', (req, res) => {
-  var recipe = recipes.find((recipe) => recipe.name === req.params.food);
+router.get('/:food', async (req, res) => {
+  try {
+
+  const recipe = await Recipe.findOne({name: req.params.food});
   if (!recipe) {
-    recipe = {
-      name: req.params.food,
-      ingredients: staticRecipe.ingredients,
-      instructions: staticRecipe.instructions
-    }
+    res.json( "Recipe not found.")
   }
   if (req.header('Accept').includes('application/json')) {
     res.status(200).json(recipe);
@@ -142,6 +157,9 @@ router.get('/:food', (req, res) => {
       ingredients: recipe.ingredients,
       instructions: recipe.instructions
     });
+  }
+  } catch(error) {
+    console.log('Something went wrong with fetching the recipe:', error)
   }
 });
 
