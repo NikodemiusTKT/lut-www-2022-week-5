@@ -2,15 +2,15 @@ extends layout
 
 block content
   .viewing.col
-    h1(style={"text-transform":"capitalize"})= name
+    h1#recipeTitle(style={"text-transform":"capitalize"})= name
     h2 Ingredients
-    ul
+    ul#ingredientsList
       each ingredient in ingredients
         li #{ingredient}
       else
         li No ingredients.
     h2 Instructions
-    ol
+    ol#instructionsList
       each instruction in instructions
         li #{instruction}
       else

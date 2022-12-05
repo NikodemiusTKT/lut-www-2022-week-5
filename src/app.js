@@ -27,6 +27,7 @@ mongoose.connect(mongoDB, {
   console.log(err)
 })
 
+// populate mongoose with default
 
 ////Get the default connection
 //var db = mongoose.connection;

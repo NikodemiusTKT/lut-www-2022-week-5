@@ -1,41 +1,38 @@
-{
-  "recipes": [{
-      "name": "Pizza",
-      "ingredients": ["1 frozen pizza base", "1 tomato sauce", "2 mozzarellas", "casserolle", "lassagna"],
-      "instructions": ["preheat oven 225C", "Put everything to a large bowl", "slice mozzarellas", "put tomato sauce on pizza base", "put mozzarella slices on pizza", "bake for 15 minutes"]
-    }, {
-      "name": "Baked potatoes",
-      "ingredients": ["4 large potatoes", "4 tablespoons olive oil", "4 teaspoons butter", "sea salt"],
-      "instructions": ["Wash and thoroughly dry the potatoes", "Prick all over with a fork so there are holes everywhere, this makes it easy for the water to drain and the skin to become crunchy.", "Rub with a little olive oil and lots of sea salt to draw out the water and leave for 2 hours or more.", "Preheat the oven to 220° C (425° F) (Gas 7)", "Rinse off most of the excess sea salt and pat dry before cooking. It's job of drawing out moisture from the skin has been done.", "Place on a rack in the centre of the oven until the skins are crisp (1 to 1.5 hours)", "Make a cross in the top of the potato, wrap with a cloth and squash it to break up the flesh inside"]
-    }, {
-      "name": "Hot dog",
-      "ingredients": ["1 onion, chopped", "4 frankfurters", "1 French stick", "French mustard to garnish", "Olive oil for frying"],
-      "instructions": ["Heat the frankfurters as directed on the packet. The microwave is the easy option here.", "Gently fry the onions in a little olive oil until translucent", "Cut the French stick into four lengths", "Poke hole ¾ way down each piece of bread to make a pocket for the sausage", "Cut the frankfurter along its length to make a long slit and place a quarter of the onions in the gap", "With a knife, spread some mustard along the length of the bread", "Drop the frankfurter into the roll", "Serve"]
-    }, {
-      "name": "Lentil soup",
-      "ingredients": ["4 large potatoes", "4 tablespoons olive oil", "4 teaspoons butter", "sea salt"],
-      "instructions": ["Pick over the lentils and remove any stones. Rinse well.", "Heat the olive oil, with a twist of pepper, in a large pan over medium heat. Once oil is hot, add the onion and carrots. Sauté for a few minutes, until the vegetables have started to soften, then add the garlic, stir-fry until the garlic takes some colour.", "Add the lentils, bay leaf, and stock to the pot. Simmer over low-medium heat for 25-35 minutes, until lentils are softened."]
-    },
-    {
-      "name": "Pasta",
-      "ingredients": ["100 g Italian grade 'OO' flour or plain flour", "1 whole free range egg", "1 free range egg yolk"],
-      "instructions": [
-        "Add all of the flour into a food processor and give it a whizz",
-        "Add the whole egg and the yolk and blitz it until it resembles rice grains, about 2 minutes or so",
-        "If it turns floury add a tiny drop of water",
-        "Likewise, if it stays as wet dough, add a little more flour",
-        "Once it's rice-like, knock out onto a lightly dusted worktop and knead into a ball, place in a bowl and cover with a dampened tea-towel for an hour or so",
-        "Divide into 3 or 4 balls, placing unused balls back in the covered bowl",
-        "With a rolling pin, roughly roll out each ball so it fits into your pasta machine, and repeatedly run through the machine, from the thickest setting, to the final thickness",
-        "It's useful if you can hang the pasta over a skewer until it's ready to use or it tends to stick together",
-        "In the biggest pan you have (10 pints water / 1 lb pasta) bring water with a pinch of salt, to the boil - no oil required",
-        "Once on a rolling boil, add the pasta, a quick stir with a chop-stick or long spoon to prevent sticking",
-        "The texture you should be aiming for is al-dente - a little resistance when you bite; rabbit like! This only takes a few minutes with fresh pasta",
-        "Once al-dente, remove, drain and serve"
+[{
+    "name": "Pizza",
+    "ingredients": ["1 frozen pizza base", "1 tomato sauce", "2 mozzarellas", "casserolle", "lassagna"],
+    "instructions": ["preheat oven 225C", "Put everything to a large bowl", "slice mozzarellas", "put tomato sauce on pizza base", "put mozzarella slices on pizza", "bake for 15 minutes"]
+  }, {
+    "name": "Baked potatoes",
+    "ingredients": ["4 large potatoes", "4 tablespoons olive oil", "4 teaspoons butter", "sea salt"],
+    "instructions": ["Wash and thoroughly dry the potatoes", "Prick all over with a fork so there are holes everywhere, this makes it easy for the water to drain and the skin to become crunchy.", "Rub with a little olive oil and lots of sea salt to draw out the water and leave for 2 hours or more.", "Preheat the oven to 220° C (425° F) (Gas 7)", "Rinse off most of the excess sea salt and pat dry before cooking. It's job of drawing out moisture from the skin has been done.", "Place on a rack in the centre of the oven until the skins are crisp (1 to 1.5 hours)", "Make a cross in the top of the potato, wrap with a cloth and squash it to break up the flesh inside"]
+  }, {
+    "name": "Hot dog",
+    "ingredients": ["1 onion, chopped", "4 frankfurters", "1 French stick", "French mustard to garnish", "Olive oil for frying"],
+    "instructions": ["Heat the frankfurters as directed on the packet. The microwave is the easy option here.", "Gently fry the onions in a little olive oil until translucent", "Cut the French stick into four lengths", "Poke hole ¾ way down each piece of bread to make a pocket for the sausage", "Cut the frankfurter along its length to make a long slit and place a quarter of the onions in the gap", "With a knife, spread some mustard along the length of the bread", "Drop the frankfurter into the roll", "Serve"]
+  }, {
+    "name": "Lentil soup",
+    "ingredients": ["4 large potatoes", "4 tablespoons olive oil", "4 teaspoons butter", "sea salt"],
+    "instructions": ["Pick over the lentils and remove any stones. Rinse well.", "Heat the olive oil, with a twist of pepper, in a large pan over medium heat. Once oil is hot, add the onion and carrots. Sauté for a few minutes, until the vegetables have started to soften, then add the garlic, stir-fry until the garlic takes some colour.", "Add the lentils, bay leaf, and stock to the pot. Simmer over low-medium heat for 25-35 minutes, until lentils are softened."]
+  },
+  {
+    "name": "Pasta",
+    "ingredients": ["100 g Italian grade 'OO' flour or plain flour", "1 whole free range egg", "1 free range egg yolk"],
+    "instructions": [
+      "Add all of the flour into a food processor and give it a whizz",
+      "Add the whole egg and the yolk and blitz it until it resembles rice grains, about 2 minutes or so",
+      "If it turns floury add a tiny drop of water",
+      "Likewise, if it stays as wet dough, add a little more flour",
+      "Once it's rice-like, knock out onto a lightly dusted worktop and knead into a ball, place in a bowl and cover with a dampened tea-towel for an hour or so",
+      "Divide into 3 or 4 balls, placing unused balls back in the covered bowl",
+      "With a rolling pin, roughly roll out each ball so it fits into your pasta machine, and repeatedly run through the machine, from the thickest setting, to the final thickness",
+      "It's useful if you can hang the pasta over a skewer until it's ready to use or it tends to stick together",
+      "In the biggest pan you have (10 pints water / 1 lb pasta) bring water with a pinch of salt, to the boil - no oil required",
+      "Once on a rolling boil, add the pasta, a quick stir with a chop-stick or long spoon to prevent sticking",
+      "The texture you should be aiming for is al-dente - a little resistance when you bite; rabbit like! This only takes a few minutes with fresh pasta",
+      "Once al-dente, remove, drain and serve"
 
-      ]
+    ]
 
-    },
-    { "name": "Casserole", "ingredients": ["Pasta"], "instructions":["Put everything to a large bowl"] }
-  ]
-}
+  }
+]

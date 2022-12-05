@@ -25,7 +25,16 @@ function initializeCode() {
     });
     document.querySelector('#submit').addEventListener('click', (e) => {
       e.preventDefault();
-      submitFormData({ ingredients, instructions, pictures });
+      submitFormData({
+        ingredients,
+        instructions,
+        pictures
+      });
+    });
+    document.querySelector('#searchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const recipeName = document.querySelector('input[type="search"').value
+      searchRecipe(recipeName);
     });
   });
 }
@@ -49,7 +58,7 @@ async function submitFormData(data) {
       "connection": "keep-alive",
       "accept": "*/*",
       "content-type": "application/json"
-		},
+    },
   });
   // pass request to fetch
   fetch(request)
@@ -58,4 +67,58 @@ async function submitFormData(data) {
     .catch((error) => {
       console.error(error);
     });
+}
+
+function searchRecipe(recipeName) {
+  const url = `/recipe/${recipeName}`
+  const request = new Request(url, {
+    method: 'GET',
+    headers: {
+      'accept': 'application/json;charset=utf-8'
+    }
+  })
+  fetch(request).then((res) => res.json()).then(data => {
+    var recipeNameTitle = document.querySelector('#recipeTitle');
+    var instructionsElement = document.querySelector('#instructionsList');
+    var ingredientsElement = document.querySelector('#ingredientsList');
+    // Set the recipe name
+    if (data.name) {
+      recipeNameTitle.innerHTML = data.name
+      // create li elements for every ingredient
+      if (data.ingredients.length > 0) {
+        data.ingredients.map(ingredient => {
+          var li = document.createElement('li')
+          li.append(ingredient)
+          ingredientsElement.append(li)
+        })
+      } else {
+        // case when ingredients array is empty
+      ingredientsElement.replaceChildren('No ingredients found.')
+      }
+
+      // create li elements for every intruction
+      if (data.instructions.length > 0) {
+        data.instructions.map(instruction => {
+          var li = document.createElement('li')
+          li.append(instruction)
+          instructionsElement.append(li)
+        })
+
+      } else {
+        // case when instructions array is empty
+      instructionsElement.replaceChildren('No instructions found')
+
+      }
+
+    } else {
+      recipeNameTitle.innerHTML = data;
+      ingredientsElement.replaceChildren('No ingredients found.')
+      instructionsElement.replaceChildren('No instructions found')
+
+    }
+
+
+  }).catch((error) => {
+    console.log(error)
+  })
 }
