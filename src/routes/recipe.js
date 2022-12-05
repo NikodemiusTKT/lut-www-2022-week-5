@@ -6,40 +6,13 @@ const { nextTick } = require('process');
 
 const recipesPath = path.resolve(__dirname, '../data/database.json')
 
-const Recipe = require('../models/Recipe')
+const mongoose = require('mongoose')
 
-const staticRecipe = {
-  ingredients: ['1 cm (1/2") peeled root ginger, grated',
-    '2 cloves garlic, peeled and crushed',
-    '50 g (2 oz) butter',
-    '1 onion, finely chopped',
-    '½ teaspoon turmeric powder',
-    '½ teaspoon ground white cumin',
-    '½ teaspoon ground black cumin (optional)',
-    '½ teaspoon ground coriander',
-    '½ teaspoon garam masala',
-    '½ teaspoon chili powder',
-    '½ teaspoon tandoori colouring (very optional)',
-    '4 tablespoons coconut milk or a 2 cm (1") block of creamed coconut block',
-    '112 ml (4 fl oz) liquid from pre cooked chicken tikka masala (or chicken stock)',
-    '150 ml double cream',
-    '2 heaped teaspoons of ground almonds',
-    '1 tablespoon ghee or vegetable oil for frying',
-    'Pinch of salt',
-    'Pasta'
-  ],
-  instructions: ["Mix the garlic and ginger together with the salt",
-    "Gently fry the onions in the ghee or vegetable oil for 4 minutes",
-    "Add the ginger and garlic an cook for a further 2 minutes",
-    "Add the powdered spices and cook for anther 2 minutes",
-    "Pour in the stock, coconut block and the cream and heat gently, stirring until the coconut block has melted. Don't boil.",
-    "Add the cooked tandoori chicken pieces and simmer gently for 5 minutes so the sauce permiates the meat."
-  ]
-}
 
 // if database.json doesnt's exist just require the default-data.json
 var recipes = require('../data/default-data.json').recipes
 
+const Recipe = require('../models/recipe')
 
 
 // helper function for checking if given file exists
@@ -67,6 +40,15 @@ router.get('/', async (req, res) => {
 });
 
 
+function isValidJson(str) {
+  try {
+      if(typeof str != 'string') return false;
+      JSON.parse(str);
+      return true
+  } catch (error) {
+      return false
+  }
+}
 // POST route for adding new recipe and the saving them inside database.json file
 // later JSON file could be replaced with an actual MongoDB database
 router.post('/', (req, res) => {
@@ -77,8 +59,8 @@ router.post('/', (req, res) => {
   var ingredients = req.body.ingredients;
   var instructions = req.body.instructions;
   // Need to parse JSON for ingredients and instructions, because of escaped \" double quote strings
-  if (!Array.isArray(ingredients)) ingredients = JSON.parse(ingredients)
-  if (!Array.isArray(instructions)) instructions = JSON.parse(instructions)
+  if (isValidJson(ingredients)) ingredients = JSON.parse(ingredients)
+  if (isValidJson(instructions)) instructions = JSON.parse(instructions)
   const newRecipe = new Recipe({
     name: name,
     ingredients: ingredients,

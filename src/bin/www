@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app.js');
+var app = require('../app.js').app
 var debug = require('debug')('lut-www-course-2022-week4:server');
 var http = require('http');
 // Load environment variables from .env file

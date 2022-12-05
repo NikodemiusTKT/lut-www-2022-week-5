@@ -8,26 +8,47 @@ var multer = require('multer');
 var upload = multer();
 
 var index = require('./routes/index');
-var recipesRouter = require('./routes/recipes');
+var recipesRouter = require('./routes/recipe');
 var imageRouter = require('./routes/image');
 
 var app = express();
 
 ////Import the mongoose module
 const mongoose = require('mongoose');
+const Recipe = require('./models/recipe')
 
 ////Set up default mongoose connection
 const mongoDB = process.env.mongodb || 'mongodb://127.0.0.1:27017/testdb';
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(result => {
-  console.log("MongoDB connection is successful")
-}).catch(err => {
-  console.log(err)
-})
+const conn = mongoose.connect(mongoDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then((result) => {
+    console.log('Mongoose default connection open to ' + mongoDB);
+    // Check if 'recipes' collection is empty and seed the the database with default values
+    mongoose.connection.db.collection('recipes').countDocuments({}).then((count) => {
+      if (count < 1) {
+        loadRecipes()
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  })
 
-// populate mongoose with default
+  .catch(err => {
+    console.log('Connection to database failed: ', err)
+  })
+var recipes = require('./data/default-data.json')
+async function loadRecipes() {
+  try {
+    await Recipe.insertMany(recipes);
+    console.log('Initialized new mongodb');
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
+// populate mongoose with default recipes
 
 ////Get the default connection
 //var db = mongoose.connection;
@@ -81,4 +102,8 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+module.exports = {
+  conn,
+  app
+};

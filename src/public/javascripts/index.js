@@ -53,10 +53,9 @@ async function submitFormData(data) {
   const plainFormData = Object.fromEntries(formData.entries())
   const request = new Request(url, {
     method: 'POST',
-    body: JSON.stringify(formData),
+    body: JSON.stringify(plainFormData),
     headers: {
       "connection": "keep-alive",
-      "accept": "*/*",
       "content-type": "application/json"
     },
   });
